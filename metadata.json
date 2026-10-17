@@ -1,0 +1,6 @@
+{
+  "name": "Neon Horizon: NYC Off-Grid - Next-Gen Racing Trailer & Cockpit Sim",
+  "description": "Adrenaline-pumping 4-Act cinematic trailer script and interactive 3D next-gen cockpit racing simulator set in photorealistic NYC with 100% offline freedom.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-display: 'Chakra Petch', sans-serif;
+    --font-tech: 'Rajdhani', sans-serif;
+    --font-sans: 'Inter', sans-serif;
+  }
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-tech {
+  font-family: var(--font-tech);
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Custom subtle scrollbars for teleprompter/script reader */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(10, 10, 15, 0.6);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 60, 0, 0.4);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 60, 0, 0.8);
+}
+
+/* Cinematic film grain / letterbox overlay */
+.anamorphic-flare {
+  background: linear-gradient(90deg, transparent 0%, rgba(0, 240, 255, 0.15) 50%, transparent 100%);
+}
