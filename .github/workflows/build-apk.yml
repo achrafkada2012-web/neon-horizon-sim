@@ -19,13 +19,31 @@ jobs:
         with:
           bun-version: latest
 
+      - name: Inspect Repository Structure (للتشخيص وحل المسارات)
+        run: |
+          echo "=== Root Folder Content ==="
+          ls -la
+          echo "=== Src Folder Content ==="
+          ls -la src || echo "src folder not found at root"
+
+      - name: Repair Index and Main Paths (إصلاح تلقائي للمسارات الصارمة)
+        run: |
+          # التحقق من حالة الأحرف وضمان مطابقة الملفات لمتطلبات Vite
+          if [ -f "src/Main.tsx" ]; then mv src/Main.tsx src/main.tsx; fi
+          if [ -f "src/Main.ts" ]; then mv src/Main.ts src/main.tsx; fi
+          # تعديل ملف index.html برمجياً للتأكد من استخدام المسار الصحيح
+          sed -i 's|/src/main.tsx|./src/main.tsx|g' index.html || true
+          sed -i 's|/src/Main.tsx|./src/main.tsx|g' index.html || true
+
       - name: Install Dependencies via Bun
         run: |
           bun install
           bun add @capacitor/core @capacitor/cli @capacitor/android
 
       - name: Build React App
-        run: bun run build
+        run: |
+          export VITE_CONFIG_NATIVE_IGNORE_WARNING=true
+          bun run build
 
       - name: Initialize Capacitor Android
         run: |
