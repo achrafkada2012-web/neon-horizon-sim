@@ -3,7 +3,7 @@ name: Build Android APK
 on:
   push:
     branches: [ main ]
-  workflow_dispatch: # يتيح لك تشغيل البناء يدوياً في أي وقت
+  workflow_dispatch:
 
 jobs:
   build:
@@ -18,7 +18,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
+          # تم حذف ميزة الـ cache هنا لتخطي مشكلة ملفات الـ lock كلياً
 
       - name: Install Dependencies
         run: |
