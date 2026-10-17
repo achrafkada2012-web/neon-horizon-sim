@@ -19,21 +19,18 @@ jobs:
         with:
           bun-version: latest
 
-      - name: Inspect Repository Structure (للتشخيص وحل المسارات)
+      - name: Hard-Fix Index HTML Paths (إصلاح مسار التشغيل الرئيسي قطرياً)
         run: |
-          echo "=== Root Folder Content ==="
-          ls -la
-          echo "=== Src Folder Content ==="
-          ls -la src || echo "src folder not found at root"
-
-      - name: Repair Index and Main Paths (إصلاح تلقائي للمسارات الصارمة)
-        run: |
-          # التحقق من حالة الأحرف وضمان مطابقة الملفات لمتطلبات Vite
+          # التحقق من وجود مجلد src لضمان سلامة البنية
+          if [ ! -d "src" ]; then mkdir src; fi
+          
+          # التحقق من حالة الأحرف للملف الرئيسي وتوحيدها
           if [ -f "src/Main.tsx" ]; then mv src/Main.tsx src/main.tsx; fi
           if [ -f "src/Main.ts" ]; then mv src/Main.ts src/main.tsx; fi
-          # تعديل ملف index.html برمجياً للتأكد من استخدام المسار الصحيح
-          sed -i 's|/src/main.tsx|./src/main.tsx|g' index.html || true
-          sed -i 's|/src/Main.tsx|./src/main.tsx|g' index.html || true
+          
+          # إعادة كتابة سطر السكربت في index.html ليكون صحيحاً بنسبة 100% بنقطة واحدة فقط
+          sed -i 's|src=".*main.tsx"|src="./src/main.tsx"|g' index.html || true
+          sed -i 's|src=".*Main.tsx"|src="./src/main.tsx"|g' index.html || true
 
       - name: Install Dependencies via Bun
         run: |
